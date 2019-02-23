@@ -1,10 +1,12 @@
 import React from "react";
 import Button from "./Button";
+import ListTable from "./ListTable";
 
 function Dashboard() {
   return (
     <div>
-      <Button/>
+      <Button text="Create Hotspot" onClick={() => console.log("clicked")} />
+      <ListTable />
     </div>
   );
 }

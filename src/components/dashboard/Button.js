@@ -1,10 +1,9 @@
 import React from "react";
 
 function Button(props) {
-  console.log(props);
   return (
     <div>
-      <Button>Create Hotspot</Button>
+      <button onClick={props.onClick}>{props.text}</button>
     </div>
   );
 }

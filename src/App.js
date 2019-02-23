@@ -3,7 +3,7 @@ import "./styles/App.css";
 
 // Components
 import Navbar from "./components/Navbar";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/dashboard/Dashboard";
 import ClickCatcher from "./components/ClickCatcher";
 
 class App extends Component {
