@@ -1,0 +1,11 @@
+{
+  "name": "conpass-frontend-challenge",
+  "version": "1.0.0",
+  "description": "app to create and edit tooltip hotspots",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sarah Chamorro",
+  "license": "MIT"
+}
