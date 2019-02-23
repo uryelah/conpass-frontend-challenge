@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { toggleTracking } from "../../store/actions/trackingActions";
 
 function Button(props) {
+  let [track, toggleTrack] = useState(props.track);
+
   return (
     <div>
-      <button onClick={props.onClick}>{props.text}</button>
+      <button onClick={() => props.toggleTracking(props.track)}>
+        {props.text}
+      </button>
     </div>
   );
 }
 
-export default Button;
+Button.propTypes = {
+  track: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = state => ({
+  track: state.track
+});
+
+const mapDispatchToProps = {
+  toggleTracking
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Button);
