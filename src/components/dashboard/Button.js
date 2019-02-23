@@ -4,11 +4,14 @@ import PropTypes from "prop-types";
 import { toggleTracking } from "../../store/actions/trackingActions";
 
 function Button(props) {
-  let [track, toggleTrack] = useState(props.track);
-
   return (
     <div>
-      <button onClick={() => props.toggleTracking(props.track)}>
+      <button
+        onClick={() => {
+          props.toggleTracking();
+          console.log(props);
+        }}
+      >
         {props.text}
       </button>
     </div>
@@ -16,11 +19,11 @@ function Button(props) {
 }
 
 Button.propTypes = {
-  track: PropTypes.bool.isRequired
+  tracking: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
-  track: state.track
+  tracking: state.trackMouseMove.tracking
 });
 
 const mapDispatchToProps = {
