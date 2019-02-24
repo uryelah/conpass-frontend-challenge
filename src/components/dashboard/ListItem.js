@@ -1,14 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { removeTooltip } from "../../store/actions/toolTipActions";
+
 import ListItemOption from "./ListItemOption";
 
 function ListItem(props) {
+  useEffect(() => console.log(props), []);
   return (
     <div>
-      List Item
-      <ListItemOption text="Delete" onClick={() => console.log(props)} />
+      <p>
+        <strong> {props.title} </strong>
+      </p>
+      <p>{props.description}</p>
+      <ListItemOption
+        text="Delete"
+        onClick={() => props.removeTooltip(props.tooltips, props.id)}
+      />
       <ListItemOption text="Edit" onClick={() => console.log("edit item")} />
     </div>
   );
 }
 
-export default ListItem;
+ListItem.propTypes = {
+  tooltips: PropTypes.array.isRequired
+};
+
+const mapStateToProps = state => ({
+  tooltips: state.tooltips
+});
+
+const mapDispatchToProps = {
+  removeTooltip
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListItem);

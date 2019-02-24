@@ -12,6 +12,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_TOOLTIP:
       return [action.payload, ...state];
+    case REMOVE_TOOLTIP:
+      return [...action.payload];
     default:
       return state;
   }

@@ -15,7 +15,12 @@ function ListTable(props) {
   return (
     <div>
       {props.tooltips.map((item, i) => (
-        <ListItem key={i} />
+        <ListItem
+          key={item.id}
+          id={item.id}
+          title={item.title}
+          description={item.description}
+        />
       ))}
     </div>
   );

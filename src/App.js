@@ -1,29 +1,23 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Provider } from "react-redux";
+import * as storage from "redux-storage";
 
 import "./styles/App.css";
 
 // Components
-import Navbar from "./components/Navbar";
-import Dashboard from "./components/dashboard/Dashboard";
+
 import ClickCatcher from "./components/ClickCatcher";
-import ToolTipForm from "./components/tooltips/ToolTipForm";
 
-import store from "./store/store";
+import store, { engine } from "./store/store";
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <div>
-          <ClickCatcher />
-          <Navbar />
-          <Dashboard />
-          <ToolTipForm />
-        </div>
-      </Provider>
-    );
-  }
-}
+const App = props => {
+  const load = storage.createLoader(engine);
+  load(store);
+  return (
+    <Provider store={store}>
+      <ClickCatcher />
+    </Provider>
+  );
+};
 
 export default App;

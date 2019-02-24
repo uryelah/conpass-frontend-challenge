@@ -1,10 +1,14 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers/rootReducer";
+import createEngine from "redux-storage-engine-localstorage";
+import * as storage from "redux-storage";
 
 const initialState = {};
 
-const middleware = [thunk];
+export const engine = createEngine("my-save-key");
+
+const middleware = [thunk, storage.createMiddleware(engine)];
 
 const store = createStore(
   rootReducer,
