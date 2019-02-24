@@ -4,16 +4,16 @@ import PropTypes from "prop-types";
 import { toggleTracking } from "../../store/actions/trackingActions";
 
 function Button(props) {
+  const { tracking } = props;
+  const trackStart = () => {
+    if (!tracking) {
+      props.toggleTracking();
+    }
+  };
+
   return (
     <div>
-      <button
-        onClick={() => {
-          props.toggleTracking();
-          console.log(props);
-        }}
-      >
-        {props.text}
-      </button>
+      <button onClick={trackStart}>{props.text}</button>
     </div>
   );
 }

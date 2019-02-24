@@ -1,8 +1,18 @@
+/* Variables */
+
 body {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+:root {
+  --my-num: 1000px;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 html,
@@ -15,7 +25,6 @@ body,
 }
 
 #main-div {
-  box-sizing: border-box;
   padding: 0;
   width: 100%;
   min-height: 100%;
@@ -46,4 +55,14 @@ body,
   background-color: transparent;
   box-shadow: inset 0 0 0px 2px red;
   position: absolute;
+}
+
+.overlay:hover {
+  box-shadow: inset 0 0 0 3px red,
+    inset 0 0 0 var(--my-num) rgba(255, 0, 0, 0.342);
+  border: none;
+}
+
+.hotspot-pointer:hover {
+  box-shadow: inset 0 0 0px 2px red;
 }

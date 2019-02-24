@@ -3,36 +3,69 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Navbar from "./Navbar";
 import Dashboard from "./dashboard/Dashboard";
-import ToolTipForm from "./tooltips/ToolTipForm";
 import HotsportPointer from "./tooltips/HotsportPointer";
+import XYCapture from "./XYCapture";
+import { toggleTracking, setHotspot } from "../store/actions/trackingActions";
+import { addTooltip } from "../store/actions/toolTipActions";
 
 function ClickCatcher(props) {
-  const { tracking } = props;
-  let [x, setX] = useState(null);
-  let [y, setY] = useState(null);
+  const {
+    tracking,
+    toggleTracking,
+    addTooltip,
+    setHotspot,
+    set,
+    tooltips
+  } = props;
 
-  useEffect(() => console.log(x, y), [tracking]);
+  if (tracking) {
+    document
+      .getElementById("click-catcher")
+      .addEventListener("click", toggleTracking);
+  } else if (document.getElementById("click-catcher")) {
+    document
+      .getElementById("click-catcher")
+      .removeEventListener("click", toggleTracking);
+  }
+
+  useEffect(
+    function() {
+      return console.log("un/track");
+    },
+    [tracking]
+  );
 
   return (
-    <div id="click-catcher" className={tracking ? "cursor-none" : ""}>
-      {props.tooltips.map((item, i) => (
-        <HotsportPointer x={x} y={y} />
-      ))}
+    <div id="click-catcher" className={""}>
       <Navbar />
+      {tooltips.map(tooltip => {
+        <h1>tooltip</h1>;
+      })}
+      {tracking ? <XYCapture tracking={tracking} /> : null}
       <Dashboard />
-      <ToolTipForm />
     </div>
   );
 }
 
 ClickCatcher.propTypes = {
   tracking: PropTypes.bool.isRequired,
-  tooltips: PropTypes.array.isRequired
+  tooltips: PropTypes.array.isRequired,
+  set: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
   tracking: state.trackMouseMove.tracking,
-  tooltips: state.tooltips
+  tooltips: state.tooltips,
+  set: state.trackMouseMove.set
 });
 
-export default connect(mapStateToProps)(ClickCatcher);
+const mapDispatchToProps = {
+  toggleTracking,
+  setHotspot,
+  addTooltip
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ClickCatcher);

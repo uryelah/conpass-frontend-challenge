@@ -1,7 +1,13 @@
-import { TOGGLE_TRACK_MOVE } from "./types";
+import { TOGGLE_TRACK_MOVE, SET_HOTSPOT } from "./types";
 
-export const toggleTracking = track => {
+export function toggleTracking(track) {
   return dispatch => {
     dispatch({ type: TOGGLE_TRACK_MOVE, track });
   };
-};
+}
+
+export function setHotspot(set) {
+  return dispatch => {
+    dispatch({ type: SET_HOTSPOT, set });
+  };
+}

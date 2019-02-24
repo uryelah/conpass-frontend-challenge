@@ -1,58 +1,44 @@
 import React, { useState, useEffect } from "react";
+import ToolTipForm from "./ToolTipForm";
+
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { toggleTracking } from "../../store/actions/trackingActions";
+import { addTooltip } from "../../store/actions/toolTipActions";
 
 function HotsportPointer(props) {
-  const { x, y } = props;
-  let [X, setX] = useState(x);
-  let [Y, setY] = useState(y);
-  let [positioned, setPositioned] = useState(false);
+  const { x, y, toggleTracking, tracking, set } = props;
   let styles = {
-    top: Y - 25,
-    left: X - 25
+    top: y,
+    left: x
   };
-
-  const followMouse = e => {
-    setX(e.clientX);
-    setY(e.clientY);
-  };
-  if (!positioned) {
-    document.getElementById("click-catcher").addEventListener("click", e => {
-      setPositioned(true);
-      //props.toggleTracking();
-      document
-        .getElementById("click-catcher")
-        .removeEventListener("mousemove", followMouse);
-      //document.getElementById("click-catcher").style.zIndex = "-1";
-    });
-  }
 
   useEffect(() => {
-    document
-      .getElementById("click-catcher")
-      .addEventListener("mousemove", followMouse);
-    if (positioned) {
-      document
-        .getElementById("click-catcher")
-        .removeEventListener("mousemove", followMouse);
-    }
-  }, [positioned]);
+    console.log(x, y);
+  }, [props]);
 
-  useEffect(() => console.log(x), [props.x]);
-  return <div className="hotspot-pointer" style={styles} />;
+  return (
+    <div>
+      <div className="hotspot-pointer" style={styles} />
+    </div>
+  );
 }
 
 HotsportPointer.propTypes = {
-  tracking: PropTypes.bool.isRequired
+  tooltips: PropTypes.array.isRequired,
+  tracking: PropTypes.bool.isRequired,
+  set: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
-  tracking: state.trackMouseMove.tracking
+  tooltips: state.tooltips,
+  tracking: state.trackMouseMove.tracking,
+  set: state.trackMouseMove.set
 });
 
 const mapDispatchToProps = {
-  toggleTracking
+  toggleTracking,
+  addTooltip
 };
 
 export default connect(
