@@ -37,7 +37,6 @@ function ClickCatcher(props) {
   }
 
   useEffect(() => setHotspot, [tracking === true]);
-  useEffect(() => console.log(localStorage.getItem("myCat"), [tracking]));
 
   return (
     <div id="click-catcher" className={""} style={{ position: "relative" }}>

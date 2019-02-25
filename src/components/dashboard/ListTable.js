@@ -6,7 +6,7 @@ import ListTitle from "./ListTitle";
 import ListItem from "./ListItem";
 
 function ListTable(props) {
-  useEffect(() => console.log(props.tooltips), [props.tooltips]);
+  useEffect(() => console.log(""), [props.tooltips]);
 
   //const listItems = hotspotItems => {
   //  return hotspotItems.map((item, i) => <ListItem key={i}>item</ListItem>);
