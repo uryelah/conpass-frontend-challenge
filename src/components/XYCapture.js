@@ -1,9 +1,16 @@
 import React, { useState, useEffect, use } from "react";
 import HotsportPointer from "./tooltips/HotsportPointer";
 
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { toggleTracking, setHotspot } from "../store/actions/trackingActions";
+import { addTooltip } from "../store/actions/toolTipActions";
+import AddHotspot from "./AddHotspot";
+
 function XYCapture(props) {
-  const { tracking } = props;
+  const { tracking, addTooltip, set } = props;
   let clicker = document.getElementById("click-catcher");
+  let hotPointer = document.getElementsByClassName("hotspot-pointer")[0];
 
   let [track, setTrack] = useState(true);
   let [y, setY] = useState(0);
@@ -31,33 +38,25 @@ function XYCapture(props) {
 
   if (clicker) {
     if (track) {
-      document
-        .getElementById("click-catcher")
-        .addEventListener("mousemove", followMouse);
-      document
-        .getElementById("click-catcher")
-        .addEventListener("mousedown", stop);
+      clicker.addEventListener("mousemove", followMouse);
+      clicker.addEventListener("mousedown", stop);
     } else {
-      document
-        .getElementById("click-catcher")
-        .removeEventListener("mousemove", followMouse);
+      clicker.removeEventListener("mousemove", followMouse);
     }
   }
 
-  function add(e) {
-    console.log("why");
-    newToolTip = {
-      id,
-      title: "",
-      description: "",
-      cX: x,
-      cY: y
-    };
-    addTooltip;
-  }
+  let newToolTip = {
+    id: "",
+    title: "",
+    description: "",
+    cX: x - 25,
+    cY: y - 25
+  };
+
   useEffect(() => {
     // unsubscribe
     return () => {
+      console.log(newToolTip);
       document
         .getElementById("click-catcher")
         .removeEventListener("mousemove", followMouse);
@@ -65,8 +64,34 @@ function XYCapture(props) {
         null;
       };
     };
-  });
-  return <HotsportPointer x={x} y={y} />;
+  }, [tracking]);
+
+  return (
+    <div>
+      {tracking ? <HotsportPointer x={x} y={y} tooltip={newToolTip} /> : null}
+    </div>
+  );
 }
 
-export default XYCapture;
+XYCapture.propTypes = {
+  tooltips: PropTypes.array.isRequired,
+  tracking: PropTypes.bool.isRequired,
+  set: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = state => ({
+  tooltips: state.tooltips,
+  tracking: state.trackMouseMove.tracking,
+  set: state.trackMouseMove.set
+});
+
+const mapDispatchToProps = {
+  toggleTracking,
+  addTooltip,
+  setHotspot
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(XYCapture);

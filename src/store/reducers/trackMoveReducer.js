@@ -1,4 +1,8 @@
-import { TOGGLE_TRACK_MOVE, SET_HOTSPOT } from "../actions/types";
+import {
+  TOGGLE_TRACK_MOVE,
+  SET_HOTSPOT,
+  UNSET_HOTSPOT
+} from "../actions/types";
 const initialState = { tracking: false, set: false };
 
 export default function(state = initialState, action) {
@@ -9,7 +13,11 @@ export default function(state = initialState, action) {
       });
     case SET_HOTSPOT:
       return Object.assign({}, state, {
-        set: !state.set
+        set: true
+      });
+    case UNSET_HOTSPOT:
+      return Object.assign({}, state, {
+        set: false
       });
     default:
       return state;

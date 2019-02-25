@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { setHotspot } from "../../store/actions/trackingActions";
+import { unSetHotspot } from "../../store/actions/trackingActions";
 import { addTooltip } from "../../store/actions/toolTipActions";
 
 function ToolTipForm(props) {
+  const { tooltip } = props;
   let [id, setId] = useState("");
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
   let [cX, setcX] = useState("");
   let [cY, setcY] = useState("");
-  const { set, setHotspot, addTooltip, x, y } = props;
+  const { set, unSetHotspot, addTooltip, x, y } = props;
 
   let newToolTip = {
+    ...tooltip,
     id,
     title,
-    description,
-    cX: x,
-    cY: y
+    description
   };
 
   return (
@@ -26,7 +26,7 @@ function ToolTipForm(props) {
         <form
           onSubmit={e => {
             e.preventDefault();
-            addTooltip(newToolTip).then(setHotspot);
+            addTooltip(newToolTip).then(unSetHotspot);
           }}
         >
           NEWTOOLTIP FORM
@@ -66,7 +66,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  setHotspot,
+  unSetHotspot,
   addTooltip
 };
 

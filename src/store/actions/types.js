@@ -5,3 +5,4 @@ export const EDIT_TOOLTIP = "EDIT_TOOLTIP";
 export const DISABLE_TOOLTIP = "DISABLE_TOOLTIP";
 export const ENABLE_TOOLTIP = "ENABLE_TOOLTIP";
 export const SET_HOTSPOT = "SET_HOTSPOT";
+export const UNSET_HOTSPOT = "UNSET_HOTSPOT";

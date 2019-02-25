@@ -4,11 +4,14 @@ import PropTypes from "prop-types";
 import Navbar from "./Navbar";
 import Dashboard from "./dashboard/Dashboard";
 import HotsportPointer from "./tooltips/HotsportPointer";
+import ToolTipForm from "./tooltips/ToolTipForm";
 import XYCapture from "./XYCapture";
 import { toggleTracking, setHotspot } from "../store/actions/trackingActions";
 import { addTooltip } from "../store/actions/toolTipActions";
 
 function ClickCatcher(props) {
+  let [x, setX] = useState(0);
+  let [y, setY] = useState(0);
   const {
     tracking,
     toggleTracking,
@@ -28,21 +31,29 @@ function ClickCatcher(props) {
       .removeEventListener("click", toggleTracking);
   }
 
-  useEffect(
-    function() {
-      return console.log("un/track");
-    },
-    [tracking]
-  );
+  useEffect(() => setHotspot, [tracking === true]);
 
   return (
-    <div id="click-catcher" className={""}>
+    <div id="click-catcher" className={""} style={{ position: "relative" }}>
       <Navbar />
-      {tooltips.map(tooltip => {
-        <h1>tooltip</h1>;
-      })}
       {tracking ? <XYCapture tracking={tracking} /> : null}
+      {!tracking && set ? <ToolTipForm /> : null}
       <Dashboard />
+      {props.tooltips.map((item, i) => (
+        <div
+          className="ops"
+          key={item.id}
+          style={{
+            position: "absolute",
+            top: `${item.cY}px`,
+            left: `${item.cX}px`
+          }}
+        >
+          id={item.id}
+          title={item.title}
+          description={item.description}
+        </div>
+      ))}
     </div>
   );
 }
