@@ -53,10 +53,11 @@ function XYCapture(props) {
     cY: y - 25
   };
 
+  localStorage.setItem("coords", JSON.stringify({ x: x, y: y }));
+
   useEffect(() => {
     // unsubscribe
     return () => {
-      console.log(newToolTip);
       document
         .getElementById("click-catcher")
         .removeEventListener("mousemove", followMouse);

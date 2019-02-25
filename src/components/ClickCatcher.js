@@ -12,6 +12,7 @@ import { addTooltip } from "../store/actions/toolTipActions";
 function ClickCatcher(props) {
   let [x, setX] = useState(0);
   let [y, setY] = useState(0);
+  let coords;
   const {
     tracking,
     toggleTracking,
@@ -31,13 +32,18 @@ function ClickCatcher(props) {
       .removeEventListener("click", toggleTracking);
   }
 
+  if (!tracking && set) {
+    coords = JSON.parse(localStorage.getItem("coords"));
+  }
+
   useEffect(() => setHotspot, [tracking === true]);
+  useEffect(() => console.log(localStorage.getItem("myCat"), [tracking]));
 
   return (
     <div id="click-catcher" className={""} style={{ position: "relative" }}>
       <Navbar />
       {tracking ? <XYCapture tracking={tracking} /> : null}
-      {!tracking && set ? <ToolTipForm /> : null}
+      {!tracking && set ? <ToolTipForm coords={coords} /> : null}
       <Dashboard />
       {props.tooltips.map((item, i) => (
         <div

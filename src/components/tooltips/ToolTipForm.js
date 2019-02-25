@@ -11,13 +11,14 @@ function ToolTipForm(props) {
   let [description, setDescription] = useState("");
   let [cX, setcX] = useState("");
   let [cY, setcY] = useState("");
-  const { set, unSetHotspot, addTooltip, x, y } = props;
+  const { set, unSetHotspot, addTooltip, coords } = props;
 
   let newToolTip = {
-    ...tooltip,
     id,
     title,
-    description
+    description,
+    cX: coords.x,
+    cY: coords.y
   };
 
   return (
