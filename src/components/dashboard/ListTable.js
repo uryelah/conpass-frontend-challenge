@@ -15,10 +15,6 @@ function ListTable(props) {
     [set === false]
   );
 
-  //const listItems = hotspotItems => {
-  //  return hotspotItems.map((item, i) => <ListItem key={i}>item</ListItem>);
-  //};
-
   return (
     <div id="list-container">
       <ListTitle title="List of hotspots" />

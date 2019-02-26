@@ -1,7 +1,7 @@
 import React from "react";
 
 function HotsportPointer(props) {
-  const { x, y, tooltip } = props;
+  const { x, y } = props;
   let styles = {
     top: y - 25,
     left: x - 25

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { unSetHotspot } from "../../store/actions/trackingActions";
-import ListItem from "../dashboard/ListItem";
 import FormButton from "./FormButtonGroup";
 import FormInput from "./FormInput";
 import {
@@ -82,7 +81,6 @@ function ToolTipForm(props) {
 
   useEffect(() => {
     if (set) {
-      let text = { title };
       document
         .getElementById("temp-hotspotItem")
         .classList.add("temp-hot-height");

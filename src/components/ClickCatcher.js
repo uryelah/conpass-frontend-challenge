@@ -3,26 +3,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Navbar from "./Navbar";
 import Dashboard from "./dashboard/Dashboard";
-import HotsportPointer from "./tooltips/HotsportPointer";
 import ToolTipForm from "./tooltips/ToolTipForm";
 import XYCapture from "./XYCapture";
 import { toggleTracking, setHotspot } from "../store/actions/trackingActions";
-import { addTooltip } from "../store/actions/toolTipActions";
 import CreatedHotSpots from "./tooltips/CreatedHotSpots";
 
 function ClickCatcher(props) {
-  let [x, setX] = useState(0);
-  let [y, setY] = useState(0);
   let coords;
-  const {
-    tracking,
-    toggleTracking,
-    addTooltip,
-    setHotspot,
-    set,
-    tooltips,
-    seeHotspots
-  } = props;
+  const { tracking, toggleTracking, setHotspot, set, seeHotspots } = props;
 
   if (tracking) {
     document
@@ -90,8 +78,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   toggleTracking,
-  setHotspot,
-  addTooltip
+  setHotspot
 };
 
 export default connect(

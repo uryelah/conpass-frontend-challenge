@@ -4,8 +4,6 @@ import * as storage from "redux-storage";
 
 import "./styles/App.css";
 
-// Components
-
 import ClickCatcher from "./components/ClickCatcher";
 
 import store, { engine } from "./store/store";

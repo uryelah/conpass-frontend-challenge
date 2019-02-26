@@ -5,20 +5,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { toggleTracking, setHotspot } from "../store/actions/trackingActions";
 import { addTooltip } from "../store/actions/toolTipActions";
-import { getDOMChildren } from "./functions/getDOMChildren";
-import AddHotspot from "./AddHotspot";
 
 function XYCapture(props) {
-  const { tracking, addTooltip, set } = props;
+  const { tracking } = props;
   let clicker = document.getElementById("click-catcher");
-  let hotPointer = document.getElementsByClassName("hotspot-pointer")[0];
-  let root = document.getElementById("root");
-
-  let [track, setTrack] = useState(true);
   let [y, setY] = useState(0);
   let [x, setX] = useState(0);
   let [target, setTarget] = useState({ type: Object });
-  let [domChildren, setDomChildren] = useState(getDOMChildren);
   let prevElement = document.getElementsByClassName("hotspot-pointer")[0];
 
   let followMouse = async e => {
@@ -39,7 +32,8 @@ function XYCapture(props) {
           curElement = prevElement;
         }
     }
-    if (track && clicker) {
+
+    if (clicker) {
       try {
         await setX(e.clientX);
         await setY(e.clientY);
@@ -61,12 +55,10 @@ function XYCapture(props) {
   };
 
   if (clicker) {
-    if (track) {
-      clicker.addEventListener("mousemove", followMouse);
-      clicker.addEventListener("mousedown", stop);
-    } else {
-      clicker.removeEventListener("mousemove", followMouse);
-    }
+    clicker.addEventListener("mousemove", followMouse);
+    clicker.addEventListener("mousedown", stop);
+  } else {
+    clicker.removeEventListener("mousemove", followMouse);
   }
 
   let newToolTip = {
@@ -90,7 +82,6 @@ function XYCapture(props) {
   useEffect(() => {
     // unsubscribe
     return () => {
-      setDomChildren([]);
       document
         .getElementById("click-catcher")
         .removeEventListener("mousemove", followMouse);
@@ -109,14 +100,12 @@ function XYCapture(props) {
 
 XYCapture.propTypes = {
   tooltips: PropTypes.array.isRequired,
-  tracking: PropTypes.bool.isRequired,
-  set: PropTypes.bool.isRequired
+  tracking: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
   tooltips: state.tooltips,
-  tracking: state.trackMouseMove.tracking,
-  set: state.trackMouseMove.set
+  tracking: state.trackMouseMove.tracking
 });
 
 const mapDispatchToProps = {
