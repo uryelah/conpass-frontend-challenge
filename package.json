@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development --hot",
+    "start": "webpack-dev-server --mode development --hot --open",
     "build": "webpack --mode production"
   },
   "author": "Sarah Chamorro",
