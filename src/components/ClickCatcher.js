@@ -20,7 +20,8 @@ function ClickCatcher(props) {
     addTooltip,
     setHotspot,
     set,
-    tooltips
+    tooltips,
+    seeHotspots
   } = props;
 
   if (tracking) {
@@ -59,9 +60,16 @@ function ClickCatcher(props) {
         <ToolTipForm coords={coords} createForm={true} />
       ) : null}
       <Dashboard />
-      {props.tooltips.map((item, i) => (
-        <CreatedHotSpots item={item} key={item.id} class={item.id} xx={xx} />
-      ))}
+      {seeHotspots
+        ? props.tooltips.map((item, i) => (
+            <CreatedHotSpots
+              item={item}
+              key={item.id}
+              class={item.id}
+              xx={xx}
+            />
+          ))
+        : null}
     </div>
   );
 }
@@ -69,13 +77,15 @@ function ClickCatcher(props) {
 ClickCatcher.propTypes = {
   tracking: PropTypes.bool.isRequired,
   tooltips: PropTypes.array.isRequired,
-  set: PropTypes.bool.isRequired
+  set: PropTypes.bool.isRequired,
+  seeHotspots: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
   tracking: state.trackMouseMove.tracking,
   tooltips: state.tooltips,
-  set: state.trackMouseMove.set
+  set: state.trackMouseMove.set,
+  seeHotspots: state.trackMouseMove.seeHotspots
 });
 
 const mapDispatchToProps = {

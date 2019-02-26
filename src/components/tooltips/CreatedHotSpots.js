@@ -7,7 +7,6 @@ function CreatedHotSpots(props) {
   let [hover, setHover] = useState(false);
   let clicker = document.getElementById("click-catcher");
   let [x, setX] = useState(item.cX);
-  let [xx, setXX] = useState(0);
   let [y, setY] = useState(item.cY);
   let [mouseDown, setMouseDown] = useState(false);
   let [mouseUp, setMouseUp] = useState(true);
@@ -26,30 +25,6 @@ function CreatedHotSpots(props) {
     position: "absolute",
     top: `${item.edit ? y - 25 : item.cY - 25}px`,
     left: `${item.edit ? x - 25 : item.cX - 25}px`
-  };
-
-  const dragStart = (e, id) => {
-    e.persist();
-    e.dataTransfer.setData("id", id);
-    setXX(props.xx);
-    if (props.xx) {
-      hotspotStyle.left = `${xx - 25}px`;
-      console.log(xx);
-    }
-  };
-
-  const dragStart2 = (e, id) => {
-    e.persist();
-    //e.dataTransfer.setData("id", id);
-    setXX(props.xx);
-    console.log(xx);
-  };
-
-  const dragOn = (e, id) => {
-    e.persist();
-    console.log("drag on", e.screenX, e.screenY);
-    setX(e.clientX);
-    setY(e.clientY);
   };
 
   function followPress(e) {
@@ -83,12 +58,9 @@ function CreatedHotSpots(props) {
 
   return (
     <React.Fragment key={item.id}>
-      <HotSpot />
-      <div
-        draggable
-        onDragStart={e => dragStart(e, item.id)}
-        onDragCapture={e => dragStart2(e, item.id)}
-        onDragOver={e => dragOn(e)}
+      <HotSpot
+        id={item.id}
+        style={hotspotStyle}
         onMouseOver={() => hotSpotHover()}
         onMouseOut={() => hotSpotOut()}
         onMouseDown={() => {
@@ -99,11 +71,7 @@ function CreatedHotSpots(props) {
           setMouseDown(false);
           setMouseUp(true);
         }}
-        className={`hotspot ${item.id}`}
-        id={item.id}
-        style={hotspotStyle}
       />
-      <HotSpot id={item.id} />
       <ToolTipForm
         display={display}
         onMouseOver={() => hotSpotHover()}

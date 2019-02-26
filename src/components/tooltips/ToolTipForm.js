@@ -51,14 +51,14 @@ function ToolTipForm(props) {
         ? coords.y - (formHeight - 25)
         : formWidth + coords.x > clicker.clientWidth ||
           coords.x - formWidth / 2 < 0
-        ? coords.y - 25
+        ? coords.y - 30
         : coords.y + 40,
     left:
       formWidth + coords.x > clicker.clientWidth
         ? coords.x - formWidth - 50
         : coords.x - formWidth / 2 < 0
         ? coords.x + 50
-        : coords.x - formWidth / 2 - 5,
+        : coords.x - formWidth / 2 - 12,
     maxWidth: `${formWidth}px`,
     maxHeight: `${formHeight}px`
   };
@@ -115,6 +115,7 @@ function ToolTipForm(props) {
             <div className={arrowDir} />
             <div id={arrowDir}>
               <FormInput
+                placeholder={coords.edit ? "Update me" : "Enter a title"}
                 edittable={props.createForm ? true : coords.edit}
                 autoFocus="autofocus"
                 type="text"
@@ -125,8 +126,8 @@ function ToolTipForm(props) {
                 }}
               />
               <FormInput
+                placeholder={coords.edit ? "Update me" : "Enter a description"}
                 edittable={props.createForm ? true : coords.edit}
-                autoFocus="autofocus"
                 type="text"
                 name="description"
                 value={description}
@@ -138,7 +139,7 @@ function ToolTipForm(props) {
               />
             </div>
             {props.createForm ? (
-              <div id="form-button-group">
+              <div className="form-button-group">
                 <FormButton
                   text="Create Hotspot"
                   onClick={e => {
@@ -156,15 +157,19 @@ function ToolTipForm(props) {
                 />
               </div>
             ) : coords.edit ? (
-              <div>
-                <button>{coords.messageBtn}</button>
-                <button
+              <div className="form-button-group">
+                <FormButton
+                  text={coords.messageBtn}
+                  onClick={e => {
+                    console.log("click");
+                  }}
+                />
+                <FormButton
+                  text="Cancel"
                   onClick={e => {
                     editOn(tooltips, coords.id, false);
                   }}
-                >
-                  Cancel
-                </button>
+                />
               </div>
             ) : null}
           </form>
