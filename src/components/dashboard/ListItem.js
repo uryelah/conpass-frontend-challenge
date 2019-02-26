@@ -26,7 +26,7 @@ function ListItem(props) {
       id={thisId}
       onMouseOver={e => highLightOn()}
       onMouseOut={e => highLightOff()}
-      id="list-item-container"
+      className="list-item-container"
     >
       <h3>{title.length > 0 ? title : "Unnamed Hotpsot"}</h3>
       <p>{description}</p>

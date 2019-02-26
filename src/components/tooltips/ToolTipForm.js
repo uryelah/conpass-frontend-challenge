@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { unSetHotspot } from "../../store/actions/trackingActions";
+import ListItem from "../dashboard/ListItem";
 import FormButton from "./FormButtonGroup";
 import FormInput from "./FormInput";
 import {
@@ -19,10 +20,12 @@ function ToolTipForm(props) {
   let [id, setId] = useState("");
   let [title, setTitle] = useState(props.title ? `${props.title}` : "");
   let [description, setDescription] = useState(
-    props.description ? `${props.description}` : ""
+    props.description ? props.description : ""
   );
+
   let [cX, setcX] = useState("");
   let [cY, setcY] = useState("");
+  let [arrowDir, setArrowDir] = useState("form-pointer");
   const { set, setted, unSetHotspot, addTooltip, editTooltip, coords } = props;
 
   let newToolTip = {
@@ -46,11 +49,16 @@ function ToolTipForm(props) {
     top:
       formHeight + coords.y > clicker.clientHeight
         ? coords.y - (formHeight - 25)
-        : coords.y,
+        : formWidth + coords.x > clicker.clientWidth ||
+          coords.x - formWidth / 2 < 0
+        ? coords.y - 25
+        : coords.y + 40,
     left:
       formWidth + coords.x > clicker.clientWidth
-        ? coords.x - (formWidth - 25)
-        : coords.x,
+        ? coords.x - formWidth - 50
+        : coords.x - formWidth / 2 < 0
+        ? coords.x + 50
+        : coords.x - formWidth / 2 - 5,
     maxWidth: `${formWidth}px`,
     maxHeight: `${formHeight}px`
   };
@@ -60,10 +68,32 @@ function ToolTipForm(props) {
     unSetHotspot();
   }
 
+  useEffect(() => {
+    if (formHeight + coords.y > clicker.clientHeight) {
+      setArrowDir("form-pointer_down");
+    }
+    if (formWidth + coords.x > clicker.clientWidth) {
+      setArrowDir("form-pointer_right");
+    }
+    if (coords.x - formWidth / 2 < 0) {
+      setArrowDir("form-pointer_left");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (set) {
+      let text = { title };
+      document
+        .getElementById("temp-hotspotItem")
+        .classList.add("temp-hot-height");
+    }
+  }, [title, description]);
+
   return (
     <React.Fragment>
       {!set && !setted ? null : (
         <div
+          className="form-container"
           style={formContainer}
           onMouseOver={onMouseOver}
           onMouseOut={onMouseOut}
@@ -82,7 +112,8 @@ function ToolTipForm(props) {
                 : addTooltip(newToolTip).then(unSetHotspot);
             }}
           >
-            <div id="form-input-group">
+            <div className={arrowDir} />
+            <div id={arrowDir}>
               <FormInput
                 edittable={props.createForm ? true : coords.edit}
                 autoFocus="autofocus"
@@ -118,6 +149,9 @@ function ToolTipForm(props) {
                   text="Cancel"
                   onClick={e => {
                     cancel(e);
+                    document
+                      .getElementById("temp-hotspotItem")
+                      .classList.remove("temp-hot-height");
                   }}
                 />
               </div>

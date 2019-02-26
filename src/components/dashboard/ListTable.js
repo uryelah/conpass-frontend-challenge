@@ -6,7 +6,14 @@ import ListTitle from "./ListTitle";
 import ListItem from "./ListItem";
 
 function ListTable(props) {
-  useEffect(() => console.log(""), [props.tooltips]);
+  const { set } = props;
+  useEffect(
+    () =>
+      document
+        .getElementById("temp-hotspotItem")
+        .classList.remove("temp-hot-height"),
+    [set === false]
+  );
 
   //const listItems = hotspotItems => {
   //  return hotspotItems.map((item, i) => <ListItem key={i}>item</ListItem>);
@@ -15,6 +22,7 @@ function ListTable(props) {
   return (
     <div id="list-container">
       <ListTitle title="List of hotspots" />
+      <div id="temp-hotspotItem" />
       {props.tooltips.map((item, i) => (
         <ListItem
           key={item.id}
@@ -28,11 +36,13 @@ function ListTable(props) {
 }
 
 ListTable.propTypes = {
-  tooltips: PropTypes.array.isRequired
+  tooltips: PropTypes.array.isRequired,
+  set: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
-  tooltips: state.tooltips
+  tooltips: state.tooltips,
+  set: state.trackMouseMove.set
 });
 
 export default connect(mapStateToProps)(ListTable);

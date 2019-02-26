@@ -1,6 +1,7 @@
 import {
   ADD_TOOLTIP,
   REMOVE_TOOLTIP,
+  REMOVE_TOOLTIPS,
   EDIT_TOOLTIP,
   DISABLE_TOOLTIP,
   ENABLE_TOOLTIP,
@@ -63,6 +64,16 @@ export const removeTooltip = (tooltips, tooltipId) => {
       payload: tooltips.filter(tooltip => {
         return tooltip.id !== tooltipId;
       })
+    });
+  };
+};
+
+export const removeTooltips = tooltips => {
+  let newTooltips = [];
+  return dispatch => {
+    dispatch({
+      type: REMOVE_TOOLTIPS,
+      payload: [...newTooltips]
     });
   };
 };

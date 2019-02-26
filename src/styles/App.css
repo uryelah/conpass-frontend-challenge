@@ -8,6 +8,7 @@
   --conpass-ice: #adadad;
   --conpass-option: #4a90e2;
   --conpass-charcol: #000;
+  --conpass-attention: #f23636;
   --px-20: 20px;
   --font-roboto: "Roboto", sans-serif;
 }
@@ -37,6 +38,11 @@ body,
 a {
   color: inherit;
   text-decoration: none;
+  transition: all 0.5 ease-in;
+}
+
+a:hover {
+  color: var(--conpass-blue);
 }
 
 #main-div {
@@ -78,12 +84,11 @@ a {
   font-family: inherit;
   white-space: nowrap;
   line-break: strict;
-  line-height: 2rem;
+  line-height: 2.5rem;
 }
 
 #conpass-logo {
-  max-width: 200px;
-  margin: 0 50px;
+  max-width: 150px;
 }
 
 #dashboard {
@@ -117,7 +122,7 @@ a {
   margin: 0;
 }
 
-#list-item-container {
+.list-item-container {
   display: flex;
   flex-flow: row nowrap;
   color: var(--conpass-ice);
@@ -125,9 +130,66 @@ a {
   background-color: var(--conpass-snow);
   box-shadow: inset 0 2px 0 0 var(--conpass-glacier);
   justify-content: space-between;
+  animation: 0.3s unfoldDown;
 }
 
-#list-item-container h3 {
+@keyframes unfoldDown {
+  0% {
+    transform: scaleY(1) translateY(60px);
+    opacity: 0;
+  }
+  1% {
+    transform: scaleY(0) translateY(-60px);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleY(0.5) translateY(-50px);
+  }
+  90% {
+    transform: scaleY(1) translateY(0);
+  }
+  100% {
+    transform: scaleY(0.8) translateY(0);
+  }
+}
+
+.temp-hot-height {
+  position: relative;
+  min-height: 64px;
+  padding-top: 20px;
+  text-align: center;
+  color: var(--conpass-blue);
+}
+
+.temp-hot-height:before {
+  content: "...";
+  position: absolute;
+  font-size: 2.5rem;
+  line-height: 0;
+  left: 224px;
+  animation: dotDotDOT 2s infinite;
+}
+
+@keyframes dotDotDOT {
+  0% {
+    content: "";
+    opacity: 1;
+  }
+  10% {
+    content: ".";
+  }
+  25% {
+    content: "..";
+  }
+  40% {
+    content: "...";
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.list-item-container h3 {
   font-weight: 300;
   font-size: 1.25rem;
 }
@@ -136,7 +198,7 @@ a {
   display: flex;
 }
 
-#list-item-container a {
+#list-item-option-container a {
   color: var(--conpass-option);
   text-decoration: underline;
   padding: 10px;
@@ -152,6 +214,25 @@ a {
   font-size: 1.25rem;
 }
 
+button:hover {
+  animation: waggle 0.4s;
+}
+
+@keyframes waggle {
+  0% {
+    box-shadow: 0 0 0 0 var(--conpass-blue);
+  }
+  50% {
+    box-shadow: 0 0 0 5px 0fc0c7f0;
+  }
+  80% {
+    box-shadow: 0 0 0 10px #0fc0c788;
+  }
+  100% {
+    box-shadow: 0 0 0 15px #0fc0c700;
+  }
+}
+
 #click-catcher {
   min-width: 100%;
   min-height: 100%;
@@ -165,35 +246,127 @@ a {
   width: 50px;
   box-sizing: border-box;
   padding: 10px;
-  border: 2px solid red;
+  border: 2px solid var(--conpass-attention);
   border-radius: 50%;
   background-color: transparent;
-  box-shadow: inset 0 0 0px 2px red;
+  box-shadow: inset 0 0 0px 2px var(--conpass-attention);
   position: absolute;
 }
 
 .overlay:hover {
-  box-shadow: inset 0 0 0 3px red,
+  box-shadow: inset 0 0 0 3px var(--conpass-attention),
     inset 0 0 0 var(--my-num) rgba(255, 0, 0, 0.342);
   border: none;
 }
 
 .hotspot-pointer:hover {
-  box-shadow: inset 0 0 0px 2px red;
+  box-shadow: inset 0 0 0px 2px var(--conpass-attention);
 }
 
-.ops {
-  border: 2px solid green;
+.hotspot {
   border-radius: 50%;
-  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  position: absolute;
+  opacity: 1;
+  transition: all 0.5s ease-in;
+}
+
+@keyframes expand {
+  0% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes toOpaque {
+  0% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 0.45;
+  }
+}
+
+.hotspot:before {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 0px;
+  left: 0px;
+  background-color: var(--conpass-attention);
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: toOpaque 1s infinite;
+}
+
+.hotspot:after {
+  content: "";
+  position: absolute;
   width: 50px;
   height: 50px;
-  position: absolute;
+  top: -5px;
+  left: -5px;
+  box-shadow: inset 0 0 0 3px var(--conpass-attention);
+  border-radius: 50%;
+  opacity: 0.75;
+  animation: expand 1s infinite;
+}
+
+.hotspot:hover {
+  animation: overIt 0.5s forwards;
+}
+
+.hotspot:hover:before {
+  animation-play-state: paused;
+}
+
+.hotspot:hover:after {
+  animation-play-state: paused;
+}
+
+@keyframes overIt {
+  0% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(0.75);
+  }
 }
 
 .noBorder {
   border: none;
   box-shadow: none;
+}
+
+@keyframes spriteUp {
+  0 % {
+    transform: scale(1);
+    opacity: 0;
+  }
+  1% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.01);
+    opacity: 1;
+  }
 }
 
 #form-group {
@@ -206,7 +379,58 @@ a {
   flex-flow: column nowrap;
   padding: 10px;
   background-color: var(--conpass-snow);
-  box-shadow: 0 0 3px 0 var(--conpass-glacier);
+  box-shadow: 0 1px 5px 0 var(--conpass-glacier);
+  transform: scale(1);
+  opacity: 0;
+  animation: 0.3s spriteUp ease-in forwards;
+}
+
+.form-pointer:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  top: -15px;
+  left: 140px;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid var(--conpass-glacier);
+}
+
+.form-pointer_down:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  bottom: -15px;
+  left: 140px;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid var(--conpass-glacier);
+}
+
+.form-pointer_right:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  top: 15px;
+  right: -15px;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 15px solid var(--conpass-glacier);
+}
+
+.form-pointer_left:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  top: 15px;
+  left: -15px;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-right: 15px solid var(--conpass-glacier);
 }
 
 #form-button-group {
@@ -246,5 +470,10 @@ a {
 }
 
 .highlight {
-  box-shadow: 0 0 10px 2px var(--conpass-blue);
+  box-shadow: 0 0 15px 2px var(--conpass-blue);
+}
+
+.hotspot,
+button {
+  cursor: pointer;
 }

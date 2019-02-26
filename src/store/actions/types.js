@@ -1,6 +1,7 @@
 export const TOGGLE_TRACK_MOVE = "TOGGLE_TRACK_MOVE";
 export const ADD_TOOLTIP = "ADD_TOOLTIP";
 export const REMOVE_TOOLTIP = "REMOVE_TOOLTIP";
+export const REMOVE_TOOLTIPS = "REMOVE_TOOLTIP";
 export const EDIT_ON = "EDIT_ON";
 export const EDIT_TOOLTIP = "EDIT_TOOLTIP";
 export const DISABLE_TOOLTIP = "DISABLE_TOOLTIP";

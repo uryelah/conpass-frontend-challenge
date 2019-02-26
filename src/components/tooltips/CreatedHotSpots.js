@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ToolTipForm from "./ToolTipForm";
+import HotSpot from "./Hotspot";
 
 function CreatedHotSpots(props) {
   const { item } = props;
@@ -82,6 +83,7 @@ function CreatedHotSpots(props) {
 
   return (
     <React.Fragment key={item.id}>
+      <HotSpot />
       <div
         draggable
         onDragStart={e => dragStart(e, item.id)}
@@ -97,10 +99,11 @@ function CreatedHotSpots(props) {
           setMouseDown(false);
           setMouseUp(true);
         }}
-        className={`ops ${item.id}`}
+        className={`hotspot ${item.id}`}
         id={item.id}
         style={hotspotStyle}
       />
+      <HotSpot id={item.id} />
       <ToolTipForm
         display={display}
         onMouseOver={() => hotSpotHover()}

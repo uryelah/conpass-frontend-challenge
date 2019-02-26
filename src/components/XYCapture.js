@@ -29,9 +29,8 @@ function XYCapture(props) {
     // prettier-ignore
     if (e.target) {
         if (document.elementsFromPoint(eX, eY)[1] !== prevElement) {
-          document.elementsFromPoint(eX, eY)[1].style.boxShadow = "inset 0 0 0 500px red";
-          document.elementsFromPoint(eX, eY)[1].style.border = "2px solid blue";
-          
+          document.elementsFromPoint(eX, eY)[1].style.boxShadow = "inset 0 0 0 500px rgba(255, 0, 0, 0.2)";
+          document.elementsFromPoint(eX, eY)[1].style.border = "2px solid red";
           if (prevElement && prevElement.className !== "hotspot-pointer") {
             prevElement.style.boxShadow = "none";
             prevElement.style.border = "none";

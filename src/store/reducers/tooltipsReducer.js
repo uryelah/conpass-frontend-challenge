@@ -1,6 +1,7 @@
 import {
   ADD_TOOLTIP,
   REMOVE_TOOLTIP,
+  REMOVE_TOOLTIPS,
   EDIT_TOOLTIP,
   EDIT_ON,
   DISABLE_TOOLTIP,
@@ -19,6 +20,8 @@ export default function(state = initialState, action) {
       return [...state, action.payload];
     case REMOVE_TOOLTIP:
       return [...action.payload];
+    case REMOVE_TOOLTIPS:
+      return [];
     default:
       return state;
   }
