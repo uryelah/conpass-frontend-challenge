@@ -22,8 +22,6 @@ function ToolTipForm(props) {
     props.description ? props.description : ""
   );
 
-  let [cX, setcX] = useState("");
-  let [cY, setcY] = useState("");
   let [arrowDir, setArrowDir] = useState("form-pointer");
   const { set, setted, unSetHotspot, addTooltip, editTooltip, coords } = props;
 

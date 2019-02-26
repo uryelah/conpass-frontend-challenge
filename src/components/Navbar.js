@@ -4,7 +4,7 @@ import NavbarLinkRow from "./NavbarLinkRow";
 
 function Navbar() {
   return (
-    <div id="navbar">
+    <div id="navbar" style={{ boxShadow: "0 2px 0 0 var(--conpass-glacier)" }}>
       <Logo />
       <NavbarLinkRow />
     </div>

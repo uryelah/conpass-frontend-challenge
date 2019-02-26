@@ -27,6 +27,7 @@ function ListItem(props) {
       onMouseOver={e => highLightOn()}
       onMouseOut={e => highLightOff()}
       className="list-item-container"
+      style={{ boxShadow: "inset 0 2px 0 0 var(--conpass-glacier)" }}
     >
       <h3>{title.length > 0 ? title : "Unnamed Hotpsot"}</h3>
       <p>{description}</p>
