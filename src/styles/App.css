@@ -1,19 +1,28 @@
-/* Variables */
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500");
+
+:root {
+  --my-num: 1000px;
+  --conpass-blue: #0fc0c7;
+  --conpass-snow: #fff;
+  --conpass-glacier: #ebebeb;
+  --conpass-ice: #adadad;
+  --conpass-option: #4a90e2;
+  --conpass-charcol: #000;
+  --px-20: 20px;
+  --font-roboto: "Roboto", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  box-shadow: none;
+}
 
 body {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-:root {
-  --my-num: 1000px;
-}
-
-* {
-  box-sizing: border-box;
-  box-shadow: none;
+  font-family: var(--font-roboto);
 }
 
 html,
@@ -23,6 +32,11 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 #main-div {
@@ -36,17 +50,117 @@ body,
   cursor: none;
 }
 
+#navbar {
+  top: 0;
+  left: 0;
+  width: calc(100% - var(--px-20) - var(--px-20));
+  z-index: 10;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: var(--px-20);
+  justify-content: flex-start;
+  box-shadow: 0 2px 0 0 var(--conpass-glacier);
+}
+
+#navbar-links {
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 1.2rem;
+  color: var(--conpass-ice);
+  justify-items: space-between;
+}
+
+#navbar-links .link {
+  padding: 0 30px;
+}
+
+#navbar-links .link a {
+  font-family: inherit;
+  white-space: nowrap;
+  line-break: strict;
+  line-height: 2rem;
+}
+
 #conpass-logo {
-  max-width: 100px;
+  max-width: 200px;
+  margin: 0 50px;
+}
+
+#dashboard {
+  width: 100%;
+  margin-top: 80px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+#button-container {
+  margin: 50px 0;
+}
+
+#list-container {
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: 500px;
+  zmax-height: 500px;
+  overflow: scroll;
+}
+
+#list-title-container {
+  background-color: var(--conpass-glacier);
+  color: var(--conpass-ice);
+  padding: 5px var(--px-20);
+}
+
+#list-title-container h2 {
+  font-size: 1.25rem;
+  font-weight: 200;
+  margin: 0;
+}
+
+#list-item-container {
+  display: flex;
+  flex-flow: row nowrap;
+  color: var(--conpass-ice);
+  font-size: 1.15rem;
+  background-color: var(--conpass-snow);
+  box-shadow: inset 0 2px 0 0 var(--conpass-glacier);
+  justify-content: space-between;
+}
+
+#list-item-container h3 {
+  font-weight: 300;
+  font-size: 1.25rem;
+}
+
+#list-item-option-container {
+  display: flex;
+}
+
+#list-item-container a {
+  color: var(--conpass-option);
+  text-decoration: underline;
+  padding: 10px;
+  line-height: 2.25rem;
+}
+
+#create-hotspot {
+  background-color: var(--conpass-blue);
+  color: var(--conpass-snow);
+  border: none;
+  border-radius: var(--px-20);
+  padding: 7px 12px;
+  font-size: 1.25rem;
 }
 
 #click-catcher {
   min-width: 100%;
   min-height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 .hotspot-pointer {
+  z-index: 500;
   height: 50px;
   width: 50px;
   box-sizing: border-box;
@@ -80,4 +194,57 @@ body,
 .noBorder {
   border: none;
   box-shadow: none;
+}
+
+#form-group {
+  position: absolute;
+  z-index: 600;
+  left: 0;
+  border: 1px solid var(--conpass-glacier);
+  border-radius: 5px;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 10px;
+  background-color: var(--conpass-snow);
+  box-shadow: 0 0 3px 0 var(--conpass-glacier);
+}
+
+#form-button-group {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.form-button {
+  color: var(--conpass-option);
+  font-weight: 500;
+  text-decoration: underline;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+#form-input-group {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.form-input {
+  border: 1px solid var(--conpass-glacier);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0;
+}
+
+.form-input_disabled {
+  border: none;
+}
+
+.form-input_disabled:nth-child(odd) {
+  border: none;
+  font-size: 1.2rem;
+  color: var(--conpass-charcol);
+}
+
+.highlight {
+  box-shadow: 0 0 10px 2px var(--conpass-blue);
 }

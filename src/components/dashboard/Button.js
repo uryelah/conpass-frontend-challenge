@@ -12,8 +12,10 @@ function Button(props) {
   };
 
   return (
-    <div>
-      <button onClick={trackStart}>{props.text}</button>
+    <div id="button-container">
+      <button id="create-hotspot" onClick={trackStart}>
+        {props.text}
+      </button>
     </div>
   );
 }

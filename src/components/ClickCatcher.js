@@ -8,6 +8,7 @@ import ToolTipForm from "./tooltips/ToolTipForm";
 import XYCapture from "./XYCapture";
 import { toggleTracking, setHotspot } from "../store/actions/trackingActions";
 import { addTooltip } from "../store/actions/toolTipActions";
+import CreatedHotSpots from "./tooltips/CreatedHotSpots";
 
 function ClickCatcher(props) {
   let [x, setX] = useState(0);
@@ -38,26 +39,28 @@ function ClickCatcher(props) {
 
   useEffect(() => setHotspot, [tracking === true]);
 
+  let xx = null;
+  let yy = null;
+
   return (
-    <div id="click-catcher" className={""} style={{ position: "relative" }}>
+    <div
+      id="click-catcher"
+      onDragOver={e => {
+        e.persist();
+        xx = e.clientX;
+        console.log(e);
+      }}
+      className={""}
+      style={{ position: "relative" }}
+    >
       <Navbar />
       {tracking ? <XYCapture tracking={tracking} /> : null}
-      {!tracking && set ? <ToolTipForm coords={coords} /> : null}
+      {!tracking && set ? (
+        <ToolTipForm coords={coords} createForm={true} />
+      ) : null}
       <Dashboard />
       {props.tooltips.map((item, i) => (
-        <div
-          className="ops"
-          key={item.id}
-          style={{
-            position: "absolute",
-            top: `${item.cY}px`,
-            left: `${item.cX}px`
-          }}
-        >
-          id={item.id}
-          title={item.title}
-          description={item.description}
-        </div>
+        <CreatedHotSpots item={item} key={item.id} class={item.id} xx={xx} />
       ))}
     </div>
   );

@@ -17,6 +17,7 @@ function XYCapture(props) {
   let [track, setTrack] = useState(true);
   let [y, setY] = useState(0);
   let [x, setX] = useState(0);
+  let [target, setTarget] = useState({ type: Object });
   let [domChildren, setDomChildren] = useState(getDOMChildren);
   let prevElement = document.getElementsByClassName("hotspot-pointer")[0];
 
@@ -24,23 +25,26 @@ function XYCapture(props) {
     e.stopPropagation();
     let eX = e.clientX;
     let eY = e.clientY;
+    let curElement = prevElement;
     // prettier-ignore
     if (e.target) {
         if (document.elementsFromPoint(eX, eY)[1] !== prevElement) {
           document.elementsFromPoint(eX, eY)[1].style.boxShadow = "inset 0 0 0 500px red";
           document.elementsFromPoint(eX, eY)[1].style.border = "2px solid blue";
           
-          if (prevElement) {
+          if (prevElement && prevElement.className !== "hotspot-pointer") {
             prevElement.style.boxShadow = "none";
             prevElement.style.border = "none";
           }
           prevElement = document.elementsFromPoint(eX, eY)[1];
+          curElement = prevElement;
         }
     }
     if (track && clicker) {
       try {
         await setX(e.clientX);
         await setY(e.clientY);
+        await setTarget(curElement);
       } catch {
         setX.unsubscribe();
         setY.unsubscribe();
@@ -74,8 +78,16 @@ function XYCapture(props) {
     cY: y - 25
   };
 
-  localStorage.setItem("coords", JSON.stringify({ x: x, y: y }));
-
+  localStorage.setItem(
+    "coords",
+    JSON.stringify({
+      x: x,
+      y: y,
+      targetTag: `${target.localName}`,
+      targetClassName: `${target.className}`,
+      targetId: `${target.id}`
+    })
+  );
   useEffect(() => {
     // unsubscribe
     return () => {

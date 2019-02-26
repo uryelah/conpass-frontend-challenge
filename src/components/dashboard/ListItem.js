@@ -1,23 +1,48 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { removeTooltip } from "../../store/actions/toolTipActions";
+import {
+  removeTooltip,
+  editTooltip,
+  editOn
+} from "../../store/actions/toolTipActions";
 
 import ListItemOption from "./ListItemOption";
 
 function ListItem(props) {
+  const { thisId, removeTooltip, editOn, tooltips, title, description } = props;
+
+  const highLightOn = () => {
+    document.getElementsByClassName(thisId)[0].classList.add("highlight");
+  };
+
+  const highLightOff = () => {
+    document.getElementsByClassName(thisId)[0].classList.remove("highlight");
+  };
+
   useEffect(() => console.log(props), []);
   return (
-    <div>
-      <p>
-        <strong> {props.title} </strong>
-      </p>
-      <p>{props.description}</p>
-      <ListItemOption
-        text="Delete"
-        onClick={() => props.removeTooltip(props.tooltips, props.id)}
-      />
-      <ListItemOption text="Edit" onClick={() => console.log("edit item")} />
+    <div
+      id={thisId}
+      onMouseOver={e => highLightOn()}
+      onMouseOut={e => highLightOff()}
+      id="list-item-container"
+    >
+      <h3>{title.length > 0 ? title : "Unnamed Hotpsot"}</h3>
+      <p>{description}</p>
+      <div id="list-item-option-container">
+        <ListItemOption
+          text="Delete"
+          onClick={() => removeTooltip(tooltips, thisId)}
+        />
+        <ListItemOption
+          text="Edit"
+          onClick={() => {
+            editOn(tooltips, thisId, true);
+            console.log(thisId);
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -31,7 +56,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  removeTooltip
+  removeTooltip,
+  editTooltip,
+  editOn
 };
 
 export default connect(

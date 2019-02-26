@@ -4,7 +4,7 @@ import NavbarLinkRow from "./NavbarLinkRow";
 
 function Navbar() {
   return (
-    <div>
+    <div id="navbar">
       <Logo />
       <NavbarLinkRow />
     </div>
