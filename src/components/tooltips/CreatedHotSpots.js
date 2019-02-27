@@ -4,15 +4,15 @@ import HotSpot from "./Hotspot";
 
 function CreatedHotSpots(props) {
   const { item } = props;
+  let rootHeight = document.getElementById("root").clientHeight;
+  let rootWidth = document.getElementById("root").clientWidth;
+
   let [hover, setHover] = useState(false);
   let clicker = document.getElementById("click-catcher");
   let [x, setX] = useState(item.cX);
   let [y, setY] = useState(item.cY);
   let [mouseDown, setMouseDown] = useState(false);
   let [mouseUp, setMouseUp] = useState(true);
-
-  let rootHeight = document.getElementById("root").clientHeight;
-  let rootWidth = document.getElementById("root").clientWidth;
 
   const hotSpotHover = () => {
     setHover(true);
@@ -38,6 +38,10 @@ function CreatedHotSpots(props) {
     setX(e.clientX);
     setY(e.clientY);
   }
+
+  window.addEventListener("resize", e => {
+    window.location.href = "/";
+  });
 
   function stopPlace() {
     if (item.edit && item.id) {
