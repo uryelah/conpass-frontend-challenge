@@ -11,6 +11,9 @@ function CreatedHotSpots(props) {
   let [mouseDown, setMouseDown] = useState(false);
   let [mouseUp, setMouseUp] = useState(true);
 
+  let rootHeight = document.getElementById("root").clientHeight;
+  let rootWidth = document.getElementById("root").clientWidth;
+
   const hotSpotHover = () => {
     setHover(true);
   };
@@ -23,8 +26,8 @@ function CreatedHotSpots(props) {
 
   let hotspotStyle = {
     position: "absolute",
-    top: `${item.edit ? y - 25 : item.cY - 25}px`,
-    left: `${item.edit ? x - 25 : item.cX - 25}px`
+    top: `${item.edit ? y - 25 : item.percentageTop * rootHeight - 25}px`,
+    left: `${item.edit ? x - 25 : item.percentageLeft * rootWidth - 25}px`
   };
 
   function followPress(e) {

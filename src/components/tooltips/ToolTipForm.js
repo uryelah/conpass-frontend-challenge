@@ -31,6 +31,8 @@ function ToolTipForm(props) {
     description,
     cX: coords.x,
     cY: coords.y,
+    percentageLeft: coords.percentageLeft,
+    percentageTop: coords.percentageTop,
     targetTag: coords.targetTag,
     targetClassName: coords.targetClassName,
     targetId: coords.targetId,

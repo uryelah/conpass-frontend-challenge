@@ -199,7 +199,9 @@ a:hover {
 #list-container {
   display: flex;
   flex-flow: column nowrap;
+  margin: 0 auto;
   min-width: 500px;
+  max-width: 500px;
   zmax-height: 500px;
   overflow: scroll;
 }
@@ -286,6 +288,7 @@ a:hover {
 }
 
 #create-hotspot {
+  margin: 0 auto;
   background-color: var(--conpass-blue);
   color: var(--conpass-snow);
   border: none;

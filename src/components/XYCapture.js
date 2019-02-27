@@ -69,11 +69,16 @@ function XYCapture(props) {
     cY: y - 25
   };
 
+  let rootHeight = document.getElementById("root").clientHeight;
+  let rootWidth = document.getElementById("root").clientWidth;
+
   localStorage.setItem(
     "coords",
     JSON.stringify({
       x: x,
       y: y,
+      percentageLeft: x / rootWidth,
+      percentageTop: y / rootHeight,
       targetTag: `${target.localName}`,
       targetClassName: `${target.className}`,
       targetId: `${target.id}`

@@ -40,7 +40,6 @@ function ClickCatcher(props) {
         console.log(e);
       }}
       className={""}
-      style={{ position: "relative" }}
     >
       <Navbar />
       {tracking ? <XYCapture tracking={tracking} /> : null}
@@ -48,16 +47,18 @@ function ClickCatcher(props) {
         <ToolTipForm coords={coords} createForm={true} />
       ) : null}
       <Dashboard />
-      {seeHotspots
-        ? props.tooltips.map((item, i) => (
-            <CreatedHotSpots
-              item={item}
-              key={item.id}
-              class={item.id}
-              xx={xx}
-            />
-          ))
-        : null}
+      <div id="created-hospots-container">
+        {seeHotspots
+          ? props.tooltips.map((item, i) => (
+              <CreatedHotSpots
+                item={item}
+                key={item.id}
+                class={item.id}
+                xx={xx}
+              />
+            ))
+          : null}
+      </div>
     </div>
   );
 }
